@@ -1,5 +1,5 @@
 import { Button, Icon, Layout, Menu, Tag } from "antd";
-import { ImageList, LandingPage, Stream } from "../container";
+import {  LandingPage, Stream,UsersComponent,WebsitesComponent } from "../container";
 import { NavLink, Route, Switch } from "react-router-dom";
 import React, { Component } from "react";
 import { checkToken, userLogout } from "../store/action/userAction";
@@ -20,13 +20,13 @@ const routes = [
   },
   {
     name: "Manage Users",
-    address: "/home/images",
-    iconType: "file-image"
+    address: "/home/users",
+    iconType: "user"
   },
   {
     name: "Manage Websites",
-    address: "/home/videos",
-    iconType: "database"
+    address: "/home/websites",
+    iconType: "unordered-list"
   }
 ];
 
@@ -87,9 +87,9 @@ class HomePage extends Component {
                     />
                     <Route
                       key="route-2"
-                      path={`${this.props.match.path}/images`}
+                      path={`${this.props.match.path}/users`}
                       exact
-                      component={ImageList}
+                      component={UsersComponent}
                     />
                     <Route
                       key="route-3"
@@ -99,8 +99,8 @@ class HomePage extends Component {
                      <Route
                      exact
                       key="route-4"
-                      path={`${this.props.match.path}/videos`}
-                      component={VideoList}
+                      path={`${this.props.match.path}/websites`}
+                      component={WebsitesComponent}
                     />
                     <Route
                     exact
@@ -163,7 +163,7 @@ export class HeaderMenu extends React.Component {
               </NavLink>
             </div>
           </Menu.Item>
-          {routes.map((route, index) => {
+          {/* {routes.map((route, index) => {
             return (
               <Menu.Item key={`header-menu-${index}-nv`} className="custom-menu-item">
               
@@ -176,15 +176,17 @@ export class HeaderMenu extends React.Component {
                   </NavLink>
               </Menu.Item>
             );
-          })}
+          })} */}
         </Menu>
         <div
           className="right-header"
-          style={{ width: "30%" }}
+          style={{ width: "90%" }}
           key="user-logout"
         >
-          
-          <Button type="primary" style={{marginLeft : "380px"}} size="small" onClick={this.logOut}>
+          <Tag color="blue">
+            <strong>Manage system for Yitech Administrator</strong>
+          </Tag>
+          <Button type="primary" style={{marginLeft:"400px"}}  size="small" onClick={this.logOut}>
             Logout <Icon type="logout" />
           </Button>
         </div>

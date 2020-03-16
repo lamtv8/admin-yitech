@@ -3,18 +3,20 @@
 }
 
 .landingpage-container {
+  margin-left: 50px;
+  text-align: center;
   i {
-    font-size: 50px;
+    font-size: 10px;
     margin: 10px 0;
-    color: #1890ff;
+    color: #282a2c;
   }
   .ant-card:hover {
     transform: translateY(-5px);
     color: white;
     transition: all 0.5s;
     background: #e6f7ff;
-    color: #1967d2;
-    border: 1px solid #1967d2;
+    color: #282a2c;
+    border: 1px solid #282a2c;
     i {
       color: #001529;
     }

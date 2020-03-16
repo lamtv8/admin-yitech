@@ -3,14 +3,14 @@ import React, { Component } from "react";
 import { resetFiltersDate, updateFiltersDate } from "../store/action/filterDateAction";
 import { resetFiltersRange, updateFiltersRange } from "../store/action/filterRangeAction";
 
-import { LineLoading } from "../common/LineLoading";
+// import { LineLoading } from "../common/LineLoading";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { toStringDate } from "../common/utilities";
 import { updatePagination } from "../store/action/pagiAction";
 import { updateVideos } from "../store/action/videoAction";
 
-class VideoList extends Component {
+class WebsitesComponent extends Component {
   componentDidMount() {
     const { filterDate, filterRange } = this.props;
 
@@ -61,11 +61,11 @@ class VideoList extends Component {
     var { loading } = this.props.videoList;
     return (
         <div className="content-wrapper">
-          <h1>Danh Sách Video</h1>
+          <h1>Tracking webistes list</h1>
   
           <VideoListOption videos={results} count={count} {...this.props} />
           <div className="table-2">
-            {loading && <LineLoading />}
+            {/* {loading && <LineLoading />} */}
             <VideoTable videos={results} {...this.props} />
           </div>
         </div>
@@ -234,17 +234,28 @@ export class VideoTable extends Component {
       var { videoLink, createdTime } = this.state.row;
       return (
         <div>
-         
-          <table className="">
-            <tbody>
-              <tr>
-                <th>
-                  <div>VIDEOS</div>
-                </th>
-              </tr>
-             <tr>   <Row> {this.getRows()}   </Row></tr>
-            </tbody>
-          </table>
+         <table>
+         <tbody>
+            <tr>
+              <th>
+                <div>ID</div>
+              </th>
+              <th>
+                <div>URL</div>
+              </th>
+              <th>
+                <div>Author</div>
+              </th>
+              <th>
+                Organization
+              </th>
+              <th>
+                <div>Active/Deactive</div>
+              </th>
+            </tr>
+            {this.getRows()}
+          </tbody>
+        </table>
         </div>
       );
     }
@@ -270,4 +281,4 @@ const mapStateToProps = state => {
     };
   };
   
-  export default connect(mapStateToProps, mapDispatchToProps)(VideoList);
+  export default connect(mapStateToProps, mapDispatchToProps)(WebsitesComponent);

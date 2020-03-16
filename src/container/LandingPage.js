@@ -3,38 +3,24 @@ import React, { Component } from "react";
 
 const data = [
   {
+    number: 12,
     icon: "file-image",
-    title: "Danh Sách Hình Ảnh",
+    title: "HAVE",
     description:
-      "Danh sách hình ảnh những người quá độ tuổi quy định đã vào khu vui chơi trẻ em trong chung cư.",
-    router: "/home/images",
+      "Customer use our system",
+    router: "/home/users",
     keyrender: "1"
   },
   {
+    number: 20,
     icon: "database",
-    title: "Danh Sách Video Đã Lưu",
+    title: "HAVE",
     description:
-      "Danh sách những video đã được ghi lại trước đó. bạn có thể xem lại video bằng cách bấm vào nút xem video ở video đó",
-    router: "/home/videos",
+      "Website are tracking by our system",
+    router: "/home/websites",
     keyrender: "2"
   },
 
-  {
-    icon: "video-camera",
-    title: "Camera Quan Sát",
-    description:
-      "Hệ thống quan sát và thông báo khu vực vui chơi trẻ em thông qua camera đã lắp đặt sẵn.",
-    router: "/home/stream",
-    keyrender: "3"
-  },
-  {
-    icon: "question-circle",
-    title: "Hướng dẫn sử dụng",
-    description:
-      "Nếu đay là lần đầu bạn sử dụng hệ thống, vui lòng đọc hướng dẫn sử dụng tại đây.",
-    router: "/home/tutorial",
-    keyrender: "4"
-  }
 ];
 
 export default class LandingPage extends Component {
@@ -46,15 +32,16 @@ export default class LandingPage extends Component {
       <div className="content-wrapper">
         <List
         className="landingpage-container"
-          grid={{ gutter: 16, column: 4 }}
+          grid={{ gutter: 16, column: 2 }}
           dataSource={data}
           renderItem={item => (
-            <List.Item>
-              <Card title={item.title} className="card-landing-custom">
-              <Icon type={item.icon} />
+            <List.Item >
+              <Card title={item.title} className="card-landing-custom"> 
+              {/* <Icon type={item.icon} /> */}
+              <div style={{ color: "red",fontSize: "50px",textAlign:"center",fontWeight:"bold",}}>{item.number}</div>
                 <p>{item.description}</p>
                 <Button type="primary" onClick={()=>this.navigate(item.router)}>
-                  Chuyển Đến
+                  View
                 </Button>
               </Card>
             </List.Item>

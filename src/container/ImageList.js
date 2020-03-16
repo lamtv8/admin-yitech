@@ -4,13 +4,14 @@ import { getDetectDescription, toStringDate } from "../common/utilities";
 import { resetFiltersDate, updateFiltersDate } from "../store/action/filterDateAction";
 import { resetFiltersRange, updateFiltersRange } from "../store/action/filterRangeAction";
 
-import { LineLoading } from "../common/LineLoading";
+//import { LineLoading } from "../common/LineLoading";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { updateImages } from "../store/action/imageAction";
 import { updatePagination } from "../store/action/pagiAction";
+import { Users } from ".";
 
-class ImageList extends Component {
+class UsersComponent extends Component {
   constructor(props) {
     super(props);
   }
@@ -73,10 +74,10 @@ class ImageList extends Component {
     var { loading } = this.props.imageList;
     return (
       <div className="content-wrapper">
-        <h1>Hình Ảnh Phát Hiện Quá Tuổi Cho Phép</h1>
+        <h1>User list</h1>
         <ImageListOption images={results} count={count} {...this.props} />
         <div className="table-1">
-          {loading && <LineLoading />}
+          {/* {loading && <LineLoading />} */}
           <ImageTable images={results} {...this.props} />
         </div>
       </div>
@@ -385,13 +386,13 @@ export class ImageTable extends Component {
                 <div>ID</div>
               </th>
               <th>
-                <div>Ảnh</div>
+                <div>Username</div>
               </th>
               <th>
-                <div>Tuổi phát hiện</div>
+                <div>Number of websites</div>
               </th>
               <th>
-                <div>Ngày Phát Hiện</div>
+                <div>Active/Deactive</div>
               </th>
             </tr>
             {this.getRows()}
@@ -421,4 +422,4 @@ let mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ImageList);
+export default connect(mapStateToProps, mapDispatchToProps)(UsersComponent);
