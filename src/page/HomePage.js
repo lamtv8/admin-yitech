@@ -91,28 +91,11 @@ class HomePage extends Component {
                       exact
                       component={UsersComponent}
                     />
-                    <Route
-                      key="route-3"
-                      path={`${this.props.match.path}/stream`}
-                      component={Stream}
-                    />
                      <Route
                      exact
                       key="route-4"
                       path={`${this.props.match.path}/websites`}
                       component={WebsitesComponent}
-                    />
-                    <Route
-                    exact
-                      key="route-5"
-                      path={`${this.props.match.path}/videos/:id`}
-                      component={PlayVideo}
-                    />
-                     <Route
-                    exact
-                      key="route-6"
-                      path={`${this.props.match.path}/tutorial`}
-                      component={Tutorial}
                     />
                   </Switch>
                 </Content>
