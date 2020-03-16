@@ -117,7 +117,7 @@ class HomePage extends Component {
                   </Switch>
                 </Content>
               </Layout>
-              <Footer style={{textAlign: "center", borderTop: "1px solid rgba(0, 0, 0, .1)"}}><strong>CPC</strong> ©2019 Developed by <strong><a href="#">team Capstone-16</a></strong>. Built on top of JavaScript, website powered by <strong>Reactjs</strong>, <strong>Redux</strong></Footer>
+              <Footer style={{textAlign: "center", borderTop: "1px solid rgba(0, 0, 0, .1)"}}><strong>UT</strong> ©2020 Developed by <strong><a href="#">team Capstone-8</a></strong></Footer>
             </Layout>
           </div>
         )}
