@@ -14,24 +14,19 @@ const { SubMenu } = Menu;
 const { Sider, Header, Footer, Content } = Layout;
 const routes = [
   {
-    name: "Trang Chính",
+    name: "DashBoard",
     address: "/home",
     iconType: "home"
   },
   {
-    name: "Danh Sách Ảnh",
+    name: "Manage Users",
     address: "/home/images",
     iconType: "file-image"
   },
   {
-    name: "Danh Sách Video",
+    name: "Manage Websites",
     address: "/home/videos",
     iconType: "database"
-  },
-  {
-    name: "Camera Quan Sát",
-    address: "/home/stream",
-    iconType: "video-camera"
   }
 ];
 
@@ -44,19 +39,26 @@ class HomePage extends Component {
   }
   componen;
   componentWillMount() {
-    this.props.checkToken(
-      {},
-      () => {
-        this.setState({
-          pageLoading: false
-        });
-      },
-      () => {
-        this.props.history.push("/");
-      }
-    );
+    this.setState({
+      pageLoading: false
+    });
+    // this.props.checkToken(
+    //   {},
+    //   () => {
+        
+    //   },
+    //   () => {
+    //     //this.props.history.push("/");
+    //     this.setState({
+    //       pageLoading: false
+    //     });
+    //   }
+    // );
   }
+
   componentWillUnmount() {}
+
+
   render() {
     return (
       <div>
@@ -156,7 +158,7 @@ export class HeaderMenu extends React.Component {
                 <img
                   style={{ width: "30px", height: "30px", }}
                   alt="logo"
-                  src={require("../static/imgs/cctv.png")}
+                  src={require("../static/imgs/icon1111.png")}
                 />
               </NavLink>
             </div>
@@ -181,10 +183,8 @@ export class HeaderMenu extends React.Component {
           style={{ width: "30%" }}
           key="user-logout"
         >
-          <Tag color="blue">
-            <strong>Hệ Thống Quan Sát Khu Vui Chơi Trẻ Em</strong>
-          </Tag>
-          <Button type="primary" size="small" onClick={this.logOut}>
+          
+          <Button type="primary" style={{marginLeft : "380px"}} size="small" onClick={this.logOut}>
             Logout <Icon type="logout" />
           </Button>
         </div>
