@@ -111,14 +111,14 @@ const UsersComponent = () => {
   const handleEnable = (id) => {
     var item = data.find( s => s.id == id);
     item.buttonType = "danger";
-    item.buttonTitle = "disable"
+    item.buttonTitle = "Disable"
     setData([...data])
   }
 
   const handleDisable = (id) => {
     var item = data.find( s => s.id == id);
     item.buttonType = "primary";
-    item.buttonTitle = "enable"
+    item.buttonTitle = "Enable"
     setData([...data])
   }
 
@@ -164,6 +164,7 @@ const UsersComponent = () => {
       ),
     },
     {
+      title: 'Status',
       render: (_, {buttonType, buttonTitle}) => (
         <Button type={buttonType} danger>
       {buttonTitle}
@@ -171,6 +172,7 @@ const UsersComponent = () => {
       )
     }
     ,{
+      title: 'Change status',
       render: (_, {id}) => (
         <Popover
           content={

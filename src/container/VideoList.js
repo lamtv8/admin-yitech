@@ -109,7 +109,19 @@ export const WebsitesComponent = () => {
     clearFilters();
     setSearchText('');
   };
+  const handleEnable = (id) => {
+    var item = data.find( s => s.id == id);
+    item.buttonType = "danger";
+    item.buttonTitle = "Disable"
+    setData([...data])
+  }
 
+  const handleDisable = (id) => {
+    var item = data.find( s => s.id == id);
+    item.buttonType = "primary";
+    item.buttonTitle = "Enable"
+    setData([...data])
+  }
   const columns = [
     {
       title: 'Name',
@@ -152,13 +164,22 @@ export const WebsitesComponent = () => {
       ),
     },
     {
-      render: () => (
+      title: 'Status',
+      render: (_, {buttonType, buttonTitle}) => (
+        <Button type={buttonType} danger>
+      {buttonTitle}
+    </Button>
+      )
+    },
+    ,{
+      title: 'Change status',
+      render: (_, {id}) => (
         <Popover
           content={
             <Menu mode="inline" className="border-r-0">
-              <Menu.Item>Edit</Menu.Item>
-              <Menu.Item>Delete</Menu.Item>
-            </Menu>
+              <Menu.Item onClick = {() => handleEnable(id)}> Lock</Menu.Item>
+              <Menu.Item onClick = {() => handleDisable(id)}> Unlock</Menu.Item>
+              </Menu>
           }
         >
           <Button
@@ -188,6 +209,8 @@ export const WebsitesComponent = () => {
           new Date().getTime() - Math.round(Math.random() * 1000000000000),
         ).toLocaleDateString(),
         views: Math.round(Math.random() * 10000),
+        buttonType: "primary",
+        buttonTitle: "Enable"
       });
       
     }

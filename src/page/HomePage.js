@@ -129,8 +129,8 @@ export class HeaderMenu extends React.Component {
               style={{
                 width: "200px",
                 height: "64px",
-                background: "rgba(255, 255, 255, 0.2)",
-                border: "10px solid",
+                background: "rgba(300, 255, 255, 0.2)",
+                border: "10px solid", 
               }}
             >
               <NavLink
@@ -139,7 +139,7 @@ export class HeaderMenu extends React.Component {
                 to="/home"
               >
                 <img
-                  style={{ width: "30px", height: "30px", }}
+                  style={{ width: "30px", height: "30px",}}
                   alt="logo"
                   src={require("../static/imgs/icon1111.png")}
                 />
