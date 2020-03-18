@@ -59,46 +59,46 @@ export class NormalLoginForm extends React.Component {
     this.setState({
       loading: true
     });
-    this.props.history.push("/home");
+    // this.props.history.push("/home");
     this.setState({
       loading: false
     });
 
     
-    // const { username, password, isRemember } = this.state;
-    // this.props.form.validateFields((err, values) => {
-    //   var data = {
-    //     username: username,
-    //     password: password,
-    //     isRemember: isRemember
-    //   };
-    //   this.props.initUser(
-    //     data,
-    //     () => {
-    //       this.setState({
-    //         loading: false
-    //       });
-    //       this.props.history.push("/home");
-    //     },
-    //     () => {
-    //       this.setState({
-    //         loading: false
-    //       });
-    //       alert("invalid Username or password");
-    //     }
-    //   );
-    // });
-    // this.setState({
-    //   loading: false
-    // });
+    const { username, password, isRemember } = this.state;
+    this.props.form.validateFields((err, values) => {
+      var data = {
+        email: username,
+        password: password,
+        isRemember: isRemember
+      };
+      this.props.initUser(
+        data,
+        () => {
+          this.setState({
+            loading: false
+          });
+          this.props.history.push("/home");
+        },
+        () => {
+          this.setState({
+            loading: false
+          });
+          alert("invalid Username or password");
+        }
+      );
+    });
+    this.setState({
+      loading: false
+    });
 
 
-    // e.preventDefault();
-    // this.props.form.validateFields((err, values) => {
-    //   if (!err) {
-    //     console.log("Received values of form: ", values);
-    //   }
-    // });
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log("Received values of form: ", values);
+      }
+    });
   };
 
   handleInput = e => {

@@ -26,6 +26,7 @@ export const initUser = (
         if (callbackSuccess !== undefined) callbackSuccess();
       })
       .catch(err => {
+        
         if (callbackFail !== undefined) callbackFail();
       });
   };

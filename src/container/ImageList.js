@@ -19,7 +19,7 @@ import Highlighter from "react-highlight-words";
 
 
 
-const UsersComponent = () => {
+const UsersComponent = (props) => {
   //const { setting } = useAccountContext();
   //const router = useRouter();
   const searchInput = useRef();
@@ -29,6 +29,11 @@ const UsersComponent = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [buttonState, setButtonState] = useState("primary");
+  useEffect(() => {
+
+    props.updateImages();
+    
+  }, [])
 
   //const activeWebsite = setting ? setting.activeWebsite : undefined;
   //const webID = activeWebsite ? activeWebsite.webID : undefined;
@@ -40,37 +45,37 @@ const UsersComponent = () => {
       confirm,
       clearFilters,
     }) => (
-      <div className="p-8">
-        <Input
-          ref={searchInput}
-          placeholder={`Search ${dataIndex}`}
-          value={selectedKeys[0]}
-          onChange={e =>
-            setSelectedKeys(e.target.value ? [e.target.value] : [])
-          }
-          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-          className="mb-8 block"
-          style={{ width: 188 }}
-        />
-        <Button
-          type="primary"
-          onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-          //icon={<SearchOutlined />}
-          size="small"
-          className="mr-8"
-          style={{ width: 90 }}
-        >
-          Search
+        <div className="p-8">
+          <Input
+            ref={searchInput}
+            placeholder={`Search ${dataIndex}`}
+            value={selectedKeys[0]}
+            onChange={e =>
+              setSelectedKeys(e.target.value ? [e.target.value] : [])
+            }
+            onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            className="mb-8 block"
+            style={{ width: 188 }}
+          />
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            //icon={<SearchOutlined />}
+            size="small"
+            className="mr-8"
+            style={{ width: 90 }}
+          >
+            Search
         </Button>
-        <Button
-          onClick={() => handleReset(clearFilters)}
-          size="small"
-          style={{ width: 90 }}
-        >
-          Reset
+          <Button
+            onClick={() => handleReset(clearFilters)}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Reset
         </Button>
-      </div>
-    ),
+        </div>
+      ),
     // filterIcon: filtered => (
     //   <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />
     // ),
@@ -93,8 +98,8 @@ const UsersComponent = () => {
           textToHighlight={text.toString()}
         />
       ) : (
-        text
-      ),
+          text
+        ),
   });
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -109,14 +114,14 @@ const UsersComponent = () => {
   };
 
   const handleEnable = (id) => {
-    var item = data.find( s => s.id == id);
+    var item = data.find(s => s.id == id);
     item.buttonType = "danger";
     item.buttonTitle = "Disable"
     setData([...data])
   }
 
   const handleDisable = (id) => {
-    var item = data.find( s => s.id == id);
+    var item = data.find(s => s.id == id);
     item.buttonType = "primary";
     item.buttonTitle = "Enable"
     setData([...data])
@@ -131,13 +136,13 @@ const UsersComponent = () => {
         <div>
           <h5
             className="text-lg cursor-pointer hover:text-blue-600 hover:underline"
-            // onClick={
-            //   () =>
-            //   router.push(
-            //     '/sites/[id]/heatmaps/[trackID]',
-            //     `/sites/${webID}/heatmaps/${trackID}`,
-            //   )
-            // }
+          // onClick={
+          //   () =>
+          //   router.push(
+          //     '/sites/[id]/heatmaps/[trackID]',
+          //     `/sites/${webID}/heatmaps/${trackID}`,
+          //   )
+          // }
           >
             {name}
           </h5>
@@ -154,32 +159,32 @@ const UsersComponent = () => {
       title: 'Email',
       sorter: true,
       width: '20%',
-      render: (_, {email}) => (
+      render: (_, { email }) => (
         <a
-            className="text-sm text-gray-500 cursor-pointer hover:text-blue-600 hover:underline"
-            href={email}
-          >
-            {email}
-          </a>
+          className="text-sm text-gray-500 cursor-pointer hover:text-blue-600 hover:underline"
+          href={email}
+        >
+          {email}
+        </a>
       ),
     },
     {
       title: 'Status',
-      render: (_, {buttonType, buttonTitle}) => (
+      render: (_, { buttonType, buttonTitle }) => (
         <Button type={buttonType} danger>
-      {buttonTitle}
-    </Button>
+          {buttonTitle}
+        </Button>
       )
     }
-    ,{
+    , {
       title: 'Change status',
-      render: (_, {id}) => (
+      render: (_, { id }) => (
         <Popover
           content={
             <Menu mode="inline" className="border-r-0">
-              <Menu.Item onClick = {() => handleEnable(id)}> Lock</Menu.Item>
-              <Menu.Item onClick = {() => handleDisable(id)}> Unlock</Menu.Item>
-              </Menu>
+              <Menu.Item onClick={() => handleEnable(id)}> Lock</Menu.Item>
+              <Menu.Item onClick={() => handleDisable(id)}> Unlock</Menu.Item>
+            </Menu>
           }
         >
           <Button
@@ -187,49 +192,49 @@ const UsersComponent = () => {
             type="normal"
             shape="circle"
             className="border-0"
-            //icon={<MoreOutlined style={{ display: 'block' }} />}
+          //icon={<MoreOutlined style={{ display: 'block' }} />}
           />
         </Popover>
       ),
     },
   ];
 
-  const fetch = () => {
+  const fetch = (data) => {
     setLoading(true);
-    const data = [];
-    for (let i = 0; i < 100; i++) {
-      data.push({
-        id: i,
-        name: `nguyen van a`,
-        email: 'VanANguyen@gmail.com',
-        description:
-          'Description is the pattern of narrative development that aims to make vivid a place, object, character, or group. Description is one of four rhetorical modes along Description is the pattern of narrative development that aims to make vivid a place, object, character, or group. Description is one of four rhetorical modes along ...',
-        createdBy: 'Van Lam',
-        createdAt: new Date(
-          new Date().getTime() - Math.round(Math.random() * 1000000000000),
-        ).toLocaleDateString(),
-        views: Math.round(Math.random() * 10000),
-        buttonType: "primary",
-        buttonTitle: "Enable"
-      });
-      
-    }
+    debugger
+    // data = data.map(item => {
+    //   return {
+    //     id: item.userId,
+    //     name: item.fullname,
+    //     email: item.email,
+    //     description:
+    //       '',
+    //     createdBy: '',
+    //     createdAt: new Date(
+    //       new Date().getTime() - Math.round(Math.random() * 1000000000000),
+    //     ).toLocaleDateString(),
+    //     views: Math.round(Math.random() * 10000),
+    //     buttonType: "primary",
+    //     buttonTitle: "Enable"
+    //   }
+    
+    // })
 
     setData(data);
     setLoading(false);
   };
 
-  useEffect(() => fetch(), []);
+  // useEffect(() => , []);
   // const addTracking = row => {
   //   setData([parseResponseData(row), ...data]);
   // };
-
+  
   return (
     <>
       <Table
         columns={columns}
         rowKey={record => record.id}
-        dataSource={data}
+        dataSource={props.imageList.data.results}
         loading={loading}
         pagination={{ position: 'both' }}
       />
@@ -316,7 +321,7 @@ const UsersComponent = () => {
 //     }, ()=>{
 //       this.props.resetFiltersDate();
 //     })
-  
+
 //   };
 
 //   render() {
@@ -466,7 +471,7 @@ const UsersComponent = () => {
 //       if (currentRow - 1 < 0) {
 //         preRow = undefined;
 //       }
-      
+
 //       this.setState({
 //         visible: true,
 //         row: this.props.images[currentRow],
@@ -487,7 +492,7 @@ const UsersComponent = () => {
 //       if (currentRow - 1 < 0) {
 //         preRow = undefined;
 //       }
-      
+
 //       this.setState({
 //         visible: true,
 //         row: this.props.images[currentRow],
@@ -507,7 +512,7 @@ const UsersComponent = () => {
 //       visible: false
 //     });
 //   };
- 
+
 //   render() {
 //     var { imageLink, createdTime, imageId } = this.state.row;
 //     var { ages } = this.state;

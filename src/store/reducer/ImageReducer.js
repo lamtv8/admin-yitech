@@ -53,7 +53,7 @@ export default function(state = initialState, action) {
     case UPDATE_IMAGE:
       return {
         ...state,
-        data: {...action.payload},
+        data: action.payload.data,
         loading: false
       };
     default:

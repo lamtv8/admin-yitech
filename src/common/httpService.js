@@ -4,9 +4,9 @@ export class ApiService {
   get = url => {
     var token = localStorage.getItem("token");
     var consfig = {
-      withCredentials: true,
+      // withCredentials: true,
       headers: {
-        Authorization: `jwt ${token}`
+        Authorization: `Bearer ${token}`
       }
     };
     return axios.get(url, consfig);
@@ -16,7 +16,7 @@ export class ApiService {
     var token = localStorage.getItem("token");
     var consfig = {
       headers: {
-        Authorization: `jwt ${token}`
+        Authorization: `Bearer ${token}`
       }
     };
     return axios.post(url, data, consfig);
@@ -25,9 +25,9 @@ export class ApiService {
   put = (url, data) => {
     var token = localStorage.getItem("token");
     var consfig = {
-      withCredentials: true,
+      // withCredentials: true,
       headers: {
-        Authorization: `jwt ${token}`
+        Authorization: `Bearer ${token}`
       }
     };
     return axios.put(url, data, consfig);
@@ -36,9 +36,9 @@ export class ApiService {
   delete = url => {
     var token = localStorage.getItem("token");
     var consfig = {
-      withCredentials: true,
+      // withCredentials: true,
       headers: {
-        Authorization: `jwt ${token}`
+        Authorization: `Bearer ${token}`
       }
     };
     return axios.delete(url, consfig);
