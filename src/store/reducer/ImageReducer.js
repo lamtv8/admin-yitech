@@ -1,4 +1,4 @@
-import { FETCH_IMAGE, UPDATE_IMAGE } from "../actionType";
+import { FETCH_IMAGE, UPDATE_IMAGE, LOCK_USER } from "../actionType";
 
 const initialState = {
   data: {
@@ -7,6 +7,7 @@ const initialState = {
     previous: undefined,
     results: []
   },
+  user: {},
   loading: false
 };
 // {
@@ -56,6 +57,13 @@ export default function(state = initialState, action) {
         data: action.payload.data,
         loading: false
       };
+    case LOCK_USER:{
+      return {
+        ...state,
+        user: action.payload.data,
+        loading: false
+      }
+    }
     default:
       return state;
   }

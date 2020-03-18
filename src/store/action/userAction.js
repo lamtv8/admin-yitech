@@ -1,4 +1,4 @@
-import { FETCH_USER, INIT_USER, UPDATE_USER } from "../actionType";
+import { FETCH_USER, INIT_USER, UPDATE_USER, LOCK_USER } from "../actionType";
 
 import { API } from "../../static/constant";
 import { httpService } from "../../common/httpService";
