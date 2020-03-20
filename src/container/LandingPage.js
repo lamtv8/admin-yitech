@@ -1,6 +1,7 @@
 import { Button, Card, Icon, List } from "antd";
 import React, { Component } from "react";
 import { updateImages } from "../store/action/imageAction";
+import { updateVideos } from "../store/action/videoAction";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
@@ -30,15 +31,16 @@ import { connect } from "react-redux";
 class LandingPage extends Component {
 
   componentDidMount() {
-    const { updateImages } = this.props;
+    const { updateImages, updateVideos } = this.props;
     updateImages();
+    updateVideos();
   }
   navigate = router => {
     this.props.history.push(router);
   };
 
   render() {
-    const { imageList } = this.props;
+    const { imageList, videosList } = this.props;
     let countUser = {
       number: !!imageList ? imageList.data.results.length : 0,
       icon: "file-image",
@@ -50,7 +52,7 @@ class LandingPage extends Component {
     }
     let data = [];
     let countWeb = {
-      number: 20,
+      number: !!videosList ? videosList.data.results.length : 0,
       icon: "database",
       title: "HAVE",
       description:
@@ -92,13 +94,14 @@ class LandingPage extends Component {
 const mapStateToProps = state => {
   return {
     imageList: state.imageList,
+    videosList: state.videoList
   };
 };
 
 let mapDispatchToProps = dispatch => {
   return {
     updateImages: bindActionCreators(updateImages, dispatch),
-
+    updateVideos: bindActionCreators(updateVideos, dispatch),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(LandingPage);

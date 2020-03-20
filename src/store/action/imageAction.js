@@ -1,4 +1,4 @@
-import { FETCH_IMAGE, UPDATE_IMAGE, LOCK_USER } from "../actionType";
+import { FETCH_IMAGE, UPDATE_IMAGE, LOCK_USER, GET_USER } from "../actionType";
 import { convertUTCDate, formatDateTime } from "../../common/utilities";
 
 import { API } from "../../static/constant";
@@ -78,10 +78,11 @@ export const lockUser = (
       .then(res => {
         dispatch(updateImages());
         // console.log(res.data);
+        var result = res.data
         dispatch({
           type: LOCK_USER,
           payload: {
-            data: [...res.data]
+            data: result
           }
         });
       
@@ -92,3 +93,34 @@ export const lockUser = (
       });
   };
 };
+
+export const getUser = (
+  userId,
+  callbackSuccess = undefined,
+   callbackFail = undefined
+ ) => {
+   return dispatch => {
+    
+     dispatch({
+       type: FETCH_IMAGE,
+       payload: null
+     });
+     var query = `${API.GET_USER_DETAIL}`;
+     httpService
+       .get(`${query}?userID=${userId}`)
+       .then(res => {
+        var result = res.data
+         dispatch({
+           type: GET_USER,
+           payload: {
+             data: result
+           }
+         });
+       
+         if (callbackSuccess !== undefined) callbackSuccess();
+       })
+       .catch(err => {
+         if (callbackFail !== undefined) callbackFail();
+       });
+   };
+ };

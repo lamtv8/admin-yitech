@@ -4,18 +4,19 @@ import 'animate.css';
 
 import * as serviceWorker from "./serviceWorker";
 
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { Route, Router, Switch } from "react-router-dom";
 
 import App from "./App";
 import { Provider } from "react-redux";
 import React from "react";
 import ReactDOM from "react-dom";
 import store from "./store/store";
+import history from '../src/store/action/history';
 
 ReactDOM.render(
   <Provider store={store}>
     <div>
-      <Router>
+      <Router history={history}>
         <Switch>
           <Route path="/" component={App} />
         </Switch>

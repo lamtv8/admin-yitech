@@ -1,4 +1,4 @@
-import { FETCH_VIDEO, UPDATE_VIDEO, LOCK_USER } from "../actionType";
+import { FETCH_VIDEO, UPDATE_VIDEO, LOCK_WEB } from "../actionType";
 import { convertUTCDate, formatDateTime } from "../../common/utilities";
 
 import { API } from "../../static/constant";
@@ -24,22 +24,18 @@ export const updateVideos = (
       .get(query)
       .then(res => {
         var data = res.data.map(item => {
-          return {
-            id: item.userId,
-            name: item.fullName,
-            email: item.email,
-            description:
-              '',
-            createdBy: '',
-            createdAt: new Date(
-              new Date().getTime() - Math.round(Math.random() * 1000000000000),
-            ).toLocaleDateString(),
-            views: Math.round(Math.random() * 10000),
-            buttonType: item.actived ? "primary" : "danger",
-            buttonTitle: item.actived ? "Enable" : "Disable",
-            actived: item.actived
+          var timestamp = item.createdAt*1000;
+          console.log(timestamp)
+        return {
+            id: item.webID,
+            url: item.webUrl,
+            createdAt: new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(timestamp),
+            author: item.authorName,
+            buttonType: item.removed ?  "danger" : "primary" ,
+            buttonTitle: item.removed ?  "Disable" :  "Enable",
+            removed: item.removed,          
+            
           }
-
         })
         dispatch({
           type: UPDATE_VIDEO,
@@ -56,3 +52,39 @@ export const updateVideos = (
       });
   };
 };
+
+export const lockWeb = (
+  webId,
+  lock,
+  callbackSuccess = undefined,
+   callbackFail = undefined
+ ) => {
+   return dispatch => {
+    
+     dispatch({
+       type: FETCH_VIDEO,
+       payload: null
+     });
+     var query = `${API.PUT_LOCK_WEB}`;
+     httpService
+       .put(query, {
+         "id": webId,
+         "locked": lock
+       })
+       .then(res => {
+         dispatch(updateVideos());
+         // console.log(res.data);
+         dispatch({
+           type: LOCK_WEB,
+           payload: {
+             data: [...res.data]
+           }
+         });
+       
+         if (callbackSuccess !== undefined) callbackSuccess();
+       })
+       .catch(err => {
+         if (callbackFail !== undefined) callbackFail();
+       });
+   };
+ };

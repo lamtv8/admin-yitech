@@ -1,12 +1,8 @@
 import { Button, Icon, Layout, Menu, Tag } from "antd";
-import {  LandingPage, Stream,UsersComponent,WebsitesComponent } from "../container";
+import {  LandingPage, Stream,UsersComponent,WebsitesComponent, UserDetailComponent } from "../container";
 import { NavLink, Route, Switch } from "react-router-dom";
 import React, { Component } from "react";
 import { checkToken, userLogout } from "../store/action/userAction";
-
-import PlayVideo from "../container/PlayVideo";
-import Tutorial from "../container/Tutorial";
-import VideoList from "../container/VideoList";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
@@ -27,7 +23,7 @@ const routes = [
     name: "Manage Websites",
     address: "/home/websites",
     iconType: "unordered-list"
-  }
+  },
 ];
 
 class HomePage extends Component {
@@ -96,6 +92,12 @@ class HomePage extends Component {
                       key="route-4"
                       path={`${this.props.match.path}/websites`}
                       component={WebsitesComponent}
+                    />
+                    <Route
+                      key="route-5"
+                      path={`${this.props.match.path}/users/:id`}
+                      exact
+                      component={UserDetailComponent}
                     />
                   </Switch>
                 </Content>

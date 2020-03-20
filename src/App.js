@@ -13,7 +13,7 @@ class App extends React.Component {
         {/* <!-- Preload page --> */}
         <div className="loading-container"  id="init-loading">
           <div className="circle-load">
-            <div class="lds-ring">
+            <div className="lds-ring">
               <div></div>
               <div></div>
               <div></div>

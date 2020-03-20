@@ -13,6 +13,8 @@ const API = {
   GET_VIDEO_LIST:`http://35.240.228.194:8760/service-user/api/admin/websites`,
   GET_STREAM: `${HOST}${PORT}/api/v1/stream`,
   PUT_LOCK_USER: `http://35.240.228.194:8760/service-user/api/admin/user/lock`,
+  PUT_LOCK_WEB: `http://35.240.228.194:8760/service-user/api/admin/website/lock`,
+  GET_USER_DETAIL:`http://35.240.228.194:8760/service-user/api/admin/ors-and-webs`,
 };
 
 const LEVEL_WARNING = {

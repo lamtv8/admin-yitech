@@ -18,11 +18,13 @@ import { Table, Button, Input, Menu, Popover } from "antd";
 //import { SearchOutlined  , MoreOutlined  } from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
 
+import history from '../store/action/history';
+
 
 
 const UsersComponent = (props) => {
-  //const { setting } = useAccountContext();
-  //const router = useRouter();
+  // const { setting } = useAccountContext();
+  // const router = useRouter();
   const searchInput = useRef();
 
   const [searchText, setSearchText] = useState('');
@@ -31,9 +33,7 @@ const UsersComponent = (props) => {
   const [loading, setLoading] = useState(false);
   const [buttonState, setButtonState] = useState("primary");
   useEffect(() => {
-
     props.updateImages();
-    
   }, [])
 
   //const activeWebsite = setting ? setting.activeWebsite : undefined;
@@ -56,7 +56,7 @@ const UsersComponent = (props) => {
             }
             onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
             className="mb-8 block"
-            style={{ width: 188 }}
+            style={{ width: 200 }}
           />
           <Button
             type="primary"
@@ -64,14 +64,14 @@ const UsersComponent = (props) => {
             //icon={<SearchOutlined />}
             size="small"
             className="mr-8"
-            style={{ width: 60 }}
+            style={{ width: 85 }}
           >
             Search
         </Button>
           <Button
             onClick={() => handleReset(clearFilters)}
             size="small"
-            style={{ width: 60 }}
+            style={{ width: 85 }}
           >
             Reset
         </Button>
@@ -127,17 +127,17 @@ const UsersComponent = (props) => {
       title: 'Name',
       dataIndex: 'name',
       ...getColumnSearchProps('name'),
-      render: (_, { id: trackID, name }) => (
+      render: (_, { id, name }) => (
         <div>
           <h5
             className="text-lg cursor-pointer hover:text-blue-600 hover:underline"
-          // onClick={
-          //   () =>
-          //   router.push(
-          //     '/sites/[id]/heatmaps/[trackID]',
-          //     `/sites/${webID}/heatmaps/${trackID}`,
-          //   )
-          // }
+            style={{cursor: "pointer", }}
+          onClick={
+            () =>
+            history.push(
+              `/home/users/${id}`,
+            )
+          }
           >
             {name}
           </h5>
@@ -153,11 +153,11 @@ const UsersComponent = (props) => {
     {
       title: 'Email',
       sorter: true,
-      width: '20%',
+      width: '30%',
       render: (_, { email }) => (
         <a
           className="text-sm text-gray-500 cursor-pointer hover:text-blue-600 hover:underline"
-          href={email}
+          // href={email}
         >
           {email}
         </a>
@@ -166,9 +166,11 @@ const UsersComponent = (props) => {
     {
       title: 'Status',
       render: (_, { id, buttonType, buttonTitle, actived }) => (
+        <div>
         <Button type={buttonType} onClick={() => handleEnableOrDisable(id, actived)}>
           {buttonTitle}
         </Button>
+        </div>
       )
     }
   ];

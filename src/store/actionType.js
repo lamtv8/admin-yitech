@@ -9,6 +9,8 @@ const UPDATE_FILTER_RANGE =  "UPDATE_FILTER_RANGE";
 const FETCH_VIDEO = "FETCH_VIDEO";
 const UPDATE_VIDEO = "UPDATE_VIDEO";
 const LOCK_USER =  "LOCK_USER";
+const LOCK_WEB =  "LOCK_WEB";
+const GET_USER =  "GET_USER";
 export {
     INIT_USER,
     FETCH_USER,
@@ -20,5 +22,7 @@ export {
     UPDATE_FILTER_RANGE,
     FETCH_VIDEO,
     UPDATE_VIDEO,
-    LOCK_USER
+    LOCK_USER,
+    LOCK_WEB,
+    GET_USER
 }

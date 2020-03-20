@@ -19,9 +19,10 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { toStringDate } from "../common/utilities";
 import { updatePagination } from "../store/action/pagiAction";
-import { updateVideos } from "../store/action/videoAction";
+import { updateVideos, lockWeb } from "../store/action/videoAction";
 
-export const WebsitesComponent = () => {
+
+export const WebsitesComponent = (props) => {
 
   //const { setting } = useAccountContext();
   //const router = useRouter();
@@ -42,37 +43,37 @@ export const WebsitesComponent = () => {
       confirm,
       clearFilters,
     }) => (
-      <div className="p-8">
-        <Input
-          ref={searchInput}
-          placeholder={`Search ${dataIndex}`}
-          value={selectedKeys[0]}
-          onChange={e =>
-            setSelectedKeys(e.target.value ? [e.target.value] : [])
-          }
-          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-          className="mb-8 block"
-          style={{ width: 188 }}
-        />
-        <Button
-          type="primary"
-          onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-          //icon={<SearchOutlined />}
-          size="small"
-          className="mr-8"
-          style={{ width: 90 }}
-        >
-          Search
+        <div className="p-8">
+          <Input
+            ref={searchInput}
+            placeholder={`Search ${dataIndex}`}
+            value={selectedKeys[0]}
+            onChange={e =>
+              setSelectedKeys(e.target.value ? [e.target.value] : [])
+            }
+            onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            className="mb-8 block"
+            style={{ width: 188 }}
+          />
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            //icon={<SearchOutlined />}
+            size="small"
+            className="mr-8"
+            style={{ width: 90 }}
+          >
+            Search
         </Button>
-        <Button
-          onClick={() => handleReset(clearFilters)}
-          size="small"
-          style={{ width: 90 }}
-        >
-          Reset
+          <Button
+            onClick={() => handleReset(clearFilters)}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Reset
         </Button>
-      </div>
-    ),
+        </div>
+      ),
     // filterIcon: filtered => (
     //   <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />
     // ),
@@ -95,8 +96,8 @@ export const WebsitesComponent = () => {
           textToHighlight={text.toString()}
         />
       ) : (
-        text
-      ),
+          text
+        ),
   });
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -109,41 +110,25 @@ export const WebsitesComponent = () => {
     clearFilters();
     setSearchText('');
   };
-  const handleEnable = (id) => {
-    var item = data.find( s => s.id == id);
-    item.buttonType = "danger";
-    item.buttonTitle = "Disable"
-    setData([...data])
+  const handleEnableOrDisable = (id, removed) => {
+    const {lockWebHandle} = props;
+    let tmp = !removed;
+    lockWebHandle(id, tmp);
   }
 
-  const handleDisable = (id) => {
-    var item = data.find( s => s.id == id);
-    item.buttonType = "primary";
-    item.buttonTitle = "Enable"
-    setData([...data])
-  }
   const columns = [
+
     {
-      title: 'Name',
-      dataIndex: 'name',
-      ...getColumnSearchProps('name'),
-      render: (_, { id: trackID, name, url }) => (
+      title: 'URL',
+      dataIndex: 'url',
+      
+      width: '40%',
+      ...getColumnSearchProps('url'),
+      render: (_, { url }) => (
         <div>
-          <h5
-            className="text-lg cursor-pointer hover:text-blue-600 hover:underline"
-            // onClick={
-            //   () =>
-            //   router.push(
-            //     '/sites/[id]/heatmaps/[trackID]',
-            //     `/sites/${webID}/heatmaps/${trackID}`,
-            //   )
-            // }
-          >
-            {name}
-          </h5>
           <a
-            className="text-sm text-gray-500 cursor-pointer hover:text-blue-600 hover:underline"
-            href={url}
+            className="text-lg cursor-pointer hover:text-blue-600 hover:underline"
+            onClick={()=> window.open(url, "_blank")}
           >
             {url}
           </a>
@@ -153,83 +138,39 @@ export const WebsitesComponent = () => {
     {
       title: 'Created',
       sorter: true,
-      width: '20%',
-      sorter: (a, b) =>
-        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-      render: (_, { createdBy, createdAt }) => (
+      width: '30%',
+      render: (_, { author, createdAt }) => (
         <div>
           <div className="font-bold">{createdAt}</div>
-          <div className="text-sm text-gray-600">{createdBy}</div>
+          <div className="text-sm text-gray-600">By <b>{author}</b></div>
         </div>
       ),
     },
     {
       title: 'Status',
-      render: (_, {buttonType, buttonTitle}) => (
-        <Button type={buttonType} danger>
-      {buttonTitle}
-    </Button>
+      render: (_, { id, buttonType, buttonTitle, removed }) => (
+        <Button type={buttonType} onClick={() => handleEnableOrDisable(id, removed)}>
+          {buttonTitle}
+        </Button>
       )
-    },
-    ,{
-      title: 'Change status',
-      render: (_, {id}) => (
-        <Popover
-          content={
-            <Menu mode="inline" className="border-r-0">
-              <Menu.Item onClick = {() => handleEnable(id)}> Lock</Menu.Item>
-              <Menu.Item onClick = {() => handleDisable(id)}> Unlock</Menu.Item>
-              </Menu>
-          }
-        >
-          <Button
-            onClick={event => event.stopPropagation()}
-            type="normal"
-            shape="circle"
-            className="border-0"
-            //icon={<MoreOutlined style={{ display: 'block' }} />}
-          />
-        </Popover>
-      ),
-    },
+    }
   ];
 
-  const fetch = () => {
-    setLoading(true);
-    const data = [];
-    for (let i = 0; i < 100; i++) {
-      data.push({
-        id: i,
-        name: `Website ${i}`,
-        url: 'https://www.google.com/'+ i,
-        description:
-          'Description is the pattern of narrative development that aims to make vivid a place, object, character, or group. Description is one of four rhetorical modes along Description is the pattern of narrative development that aims to make vivid a place, object, character, or group. Description is one of four rhetorical modes along ...',
-        createdBy: 'Van Lam',
-        createdAt: new Date(
-          new Date().getTime() - Math.round(Math.random() * 1000000000000),
-        ).toLocaleDateString(),
-        views: Math.round(Math.random() * 10000),
-        buttonType: "primary",
-        buttonTitle: "Enable"
-      });
-      
-    }
 
-    setData(data);
-    setLoading(false);
-  };
 
-  useEffect(() => fetch(), []);
-  // const addTracking = row => {
-  //   setData([parseResponseData(row), ...data]);
-  // };
+  useEffect(() => {
+
+    props.updateVideos();
+
+  }, [])
+
 
   return (
     <>
       <Table
         columns={columns}
         rowKey={record => record.id}
-        dataSource={data}
+        dataSource={props.videoList.data.results}
         loading={loading}
         pagination={{ position: 'both' }}
       />
@@ -244,7 +185,7 @@ export const WebsitesComponent = () => {
 
 const mapStateToProps = state => {
   return {
-    // videoList: state.videoList,
+    videoList: state.videoList,
     // filterDate: state.filterDate,
     // filterRange: state.filterRange,
     // pagi: state.pagi
@@ -253,12 +194,13 @@ const mapStateToProps = state => {
 
 let mapDispatchToProps = dispatch => {
   return {
-    // updateVideos: bindActionCreators(updateVideos, dispatch),
+    updateVideos: bindActionCreators(updateVideos, dispatch),
     // updateFiltersDate: bindActionCreators(updateFiltersDate, dispatch),
     // updatePagination: bindActionCreators(updatePagination, dispatch),
     // resetFiltersDate: bindActionCreators(resetFiltersDate, dispatch),
     // updateFiltersRange: bindActionCreators(updateFiltersRange, dispatch),
     // resetFiltersRange: bindActionCreators(resetFiltersRange, dispatch)
+    lockWebHandle: bindActionCreators(lockWeb, dispatch)
   };
 };
 
