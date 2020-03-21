@@ -22,6 +22,7 @@ import { updatePagination } from "../store/action/pagiAction";
 import { updateVideos, lockWeb } from "../store/action/videoAction";
 
 
+
 export const WebsitesComponent = (props) => {
 
   //const { setting } = useAccountContext();
@@ -53,7 +54,7 @@ export const WebsitesComponent = (props) => {
             }
             onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
             className="mb-8 block"
-            style={{ width: 188 }}
+            style={{ width: 260 }}
           />
           <Button
             type="primary"

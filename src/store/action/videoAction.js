@@ -4,6 +4,7 @@ import { convertUTCDate, formatDateTime } from "../../common/utilities";
 import { API } from "../../static/constant";
 import { httpService } from "../../common/httpService";
 import { activate } from "video-react/lib/actions/player";
+import {getUser} from "./imageAction";
 
 export const updateVideos = (
   fromDate,
@@ -25,7 +26,6 @@ export const updateVideos = (
       .then(res => {
         var data = res.data.map(item => {
           var timestamp = item.createdAt*1000;
-          console.log(timestamp)
         return {
             id: item.webID,
             url: item.webUrl,
@@ -56,6 +56,7 @@ export const updateVideos = (
 export const lockWeb = (
   webId,
   lock,
+  userId,
   callbackSuccess = undefined,
    callbackFail = undefined
  ) => {
@@ -73,6 +74,9 @@ export const lockWeb = (
        })
        .then(res => {
          dispatch(updateVideos());
+         if(!!userId){
+          dispatch(getUser(userId));
+         }
          // console.log(res.data);
          dispatch({
            type: LOCK_WEB,
