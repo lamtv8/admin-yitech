@@ -1,15 +1,10 @@
+import { Button, Modal, Table } from "antd";
 import React, { Component } from "react";
-
-import { API } from "../static/constant";
-import { LineLoading } from "../common/LineLoading";
-import { Player } from "video-react";
-import { httpService } from "../common/httpService";
-import { toStringDate } from "../common/utilities";
-import { getUser } from "../store/action/imageAction";
-import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { Table, Button, Modal } from "antd";
-import { lockWeb } from "../store/action/videoAction";
+import { bindActionCreators } from "redux";
+import { getUser } from "../store/action/UserListAction";
+import { lockWeb } from "../store/action/webListAction";
+
 
 const columns = [
   { title: "Name of organization", dataIndex: "name", key: "name" },

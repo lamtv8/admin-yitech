@@ -1,7 +1,7 @@
 import { Button, Card, Icon, List } from "antd";
 import React, { Component } from "react";
-import { updateImages } from "../store/action/imageAction";
-import { updateVideos } from "../store/action/videoAction";
+import { updateImages } from "../store/action/UserListAction";
+import { updateVideos } from "../store/action/webListAction";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 

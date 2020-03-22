@@ -1,16 +1,12 @@
-import ImageReducer from "./ImageReducer";
+import UserListReducer from "./UserListReducer";
 import UserReducer from "./UserReducer";
 import { combineReducers } from "redux";
-import filterDateReducer from "./filterDateReducer";
-import filterRangeReducer from "./filterRangeReducer";
 import pagiReduder from "./PagiReduder";
-import videoListReducer from './videoListReducer'
+import videoListReducer from './webListReducer'
 
 export default combineReducers({
   user: UserReducer,
-  imageList: ImageReducer,
-  filterDate: filterDateReducer,
+  imageList: UserListReducer,
   pagi: pagiReduder,
-  filterRange:filterRangeReducer,
   videoList : videoListReducer
 });

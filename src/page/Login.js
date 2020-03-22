@@ -1,13 +1,10 @@
-import { Button, Checkbox, Form, Icon, Input } from "antd";
-import { Col, Row } from "antd";
+import { Button, Col, Form, Icon, Input, Row } from "antd";
 import React, { Component } from "react";
-
-import axios from "axios";
-import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import { initUser } from "../store/action/userAction";
 
-const LoginBackground = require("../static/imgs/loginBackground.jpg");
+
 
 class Login extends Component {
   render() {
