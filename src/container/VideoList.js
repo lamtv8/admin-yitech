@@ -20,6 +20,8 @@ import { connect } from "react-redux";
 import { toStringDate } from "../common/utilities";
 import { updatePagination } from "../store/action/pagiAction";
 import { updateVideos, lockWeb } from "../store/action/videoAction";
+import history from '../store/action/history';
+
 
 
 
@@ -140,10 +142,17 @@ export const WebsitesComponent = (props) => {
       title: 'Created',
       sorter: true,
       width: '30%',
-      render: (_, { author, createdAt }) => (
+      render: (_, { author, createdAt,userId }) => (
         <div>
           <div className="font-bold">{createdAt}</div>
-          <div className="text-sm text-gray-600">By <b>{author}</b></div>
+          <div className="text-sm text-gray-600" >By <b
+          style={{cursor: "pointer", }}
+          onClick={
+            () =>
+            history.push(
+              `/home/users/${userId}`,
+            )
+          }>{author}</b></div>
         </div>
       ),
     },
