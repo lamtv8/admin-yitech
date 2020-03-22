@@ -10,7 +10,7 @@ import {
 } from "../store/action/filterRangeAction";
 
 import { useState, useEffect, useRef } from "react";
-import { Table, Button, Input, Menu, Popover } from "antd";
+import { Table, Button, Input, Menu, Popover, Modal } from "antd";
 //import { SearchOutlined  , MoreOutlined  } from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
 
@@ -20,22 +20,48 @@ import { connect } from "react-redux";
 import { toStringDate } from "../common/utilities";
 import { updatePagination } from "../store/action/pagiAction";
 import { updateVideos, lockWeb } from "../store/action/videoAction";
-import history from '../store/action/history';
+import history from "../store/action/history";
 
-
-
-
-export const WebsitesComponent = (props) => {
-
+export const WebsitesComponent = props => {
   //const { setting } = useAccountContext();
   //const router = useRouter();
   const searchInput = useRef();
 
-  const [searchText, setSearchText] = useState('');
-  const [searchedColumn, setSearchedColumn] = useState('');
+  const [searchText, setSearchText] = useState("");
+  const [searchedColumn, setSearchedColumn] = useState("");
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const [modal, setModal] = useState({
+    visible: false,
+    id: null,
+    actived: false
+  });
+
+  const showModal = (id, actived) => {
+    setModal({
+      visible: true,
+      id,
+      actived
+    });
+  };
+
+  const handleOk = () => {
+    handleEnableOrDisable(modal.id, modal.actived);
+    setModal({
+      visible: false,
+      id: null,
+      actived: false
+    });
+  };
+
+  const handleCancel = e => {
+    setModal({
+      visible: false,
+      id: null,
+      actived: false
+    });
+  };
   //const activeWebsite = setting ? setting.activeWebsite : undefined;
   //const webID = activeWebsite ? activeWebsite.webID : undefined;
 
@@ -44,39 +70,39 @@ export const WebsitesComponent = (props) => {
       setSelectedKeys,
       selectedKeys,
       confirm,
-      clearFilters,
+      clearFilters
     }) => (
-        <div className="p-8">
-          <Input
-            ref={searchInput}
-            placeholder={`Search ${dataIndex}`}
-            value={selectedKeys[0]}
-            onChange={e =>
-              setSelectedKeys(e.target.value ? [e.target.value] : [])
-            }
-            onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-            className="mb-8 block"
-            style={{ width: 260 }}
-          />
-          <Button
-            type="primary"
-            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-            //icon={<SearchOutlined />}
-            size="small"
-            className="mr-8"
-            style={{ width: 90 }}
-          >
-            Search
+      <div className="p-8">
+        <Input
+          ref={searchInput}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={e =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
+          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          className="mb-8 block"
+          style={{ width: 260 }}
+        />
+        <Button
+          type="primary"
+          onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          //icon={<SearchOutlined />}
+          size="small"
+          className="mr-8"
+          style={{ width: 90 }}
+        >
+          Search
         </Button>
-          <Button
-            onClick={() => handleReset(clearFilters)}
-            size="small"
-            style={{ width: 90 }}
-          >
-            Reset
+        <Button
+          onClick={() => handleReset(clearFilters)}
+          size="small"
+          style={{ width: 90 }}
+        >
+          Reset
         </Button>
-        </div>
-      ),
+      </div>
+    ),
     // filterIcon: filtered => (
     //   <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />
     // ),
@@ -93,14 +119,14 @@ export const WebsitesComponent = (props) => {
     render: text =>
       searchedColumn === dataIndex ? (
         <Highlighter
-          highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
           searchWords={[searchText]}
           autoEscape
           textToHighlight={text.toString()}
         />
       ) : (
-          text
-        ),
+        text
+      )
   });
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -111,91 +137,88 @@ export const WebsitesComponent = (props) => {
 
   const handleReset = clearFilters => {
     clearFilters();
-    setSearchText('');
+    setSearchText("");
   };
   const handleEnableOrDisable = (id, removed) => {
-    const {lockWebHandle} = props;
+    const { lockWebHandle } = props;
     let tmp = !removed;
     lockWebHandle(id, tmp);
-  }
+  };
 
   const columns = [
-
     {
-      title: 'URL',
-      dataIndex: 'url',
-      
-      width: '40%',
-      ...getColumnSearchProps('url'),
+      title: "URL",
+      dataIndex: "url",
+
+      width: "40%",
+      ...getColumnSearchProps("url"),
       render: (_, { url }) => (
         <div>
           <a
             className="text-lg cursor-pointer hover:text-blue-600 hover:underline"
-            onClick={()=> window.open(url, "_blank")}
+            onClick={() => window.open(url, "_blank")}
           >
             {url}
           </a>
         </div>
-      ),
+      )
     },
     {
-      title: 'Created',
-      sorter: true,
-      width: '30%',
-      render: (_, { author, createdAt,userId }) => (
+      title: "Created",
+      width: "30%",
+      render: (_, { author, createdAt, userId }) => (
         <div>
           <div className="font-bold">{createdAt}</div>
-          <div className="text-sm text-gray-600" >By <b
-          style={{cursor: "pointer", }}
-          onClick={
-            () =>
-            history.push(
-              `/home/users/${userId}`,
-            )
-          }>{author}</b></div>
+          <div className="text-sm text-gray-600">
+            By{" "}
+            <b
+              style={{ cursor: "pointer" }}
+              onClick={() => history.push(`/home/users/${userId}`)}
+            >
+              {author}
+            </b>
+          </div>
         </div>
-      ),
+      )
     },
     {
-      title: 'Status',
+      title: "Status",
       render: (_, { id, buttonType, buttonTitle, removed }) => (
-        <Button type={buttonType} onClick={() => handleEnableOrDisable(id, removed)}>
+        <Button onClick={() => showModal(id, removed)} type={buttonType}>
           {buttonTitle}
         </Button>
       )
     }
   ];
 
-
-
   useEffect(() => {
-
     props.updateVideos();
-
-  }, [])
-
+  }, []);
 
   return (
     <>
+      <Modal
+        title="Change status"
+        visible={modal.visible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <p>Please click ok to confirm this Change</p>
+      </Modal>
       <Table
         columns={columns}
         rowKey={record => record.id}
         dataSource={props.videoList.data.results}
         loading={loading}
-        pagination={{ position: 'both' }}
+        pagination={{ position: "both" }}
       />
     </>
   );
-
-}
-
-
-
-
+};
 
 const mapStateToProps = state => {
   return {
-    videoList: state.videoList,
+    videoList: state.videoList
     // filterDate: state.filterDate,
     // filterRange: state.filterRange,
     // pagi: state.pagi
