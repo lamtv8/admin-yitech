@@ -1,4 +1,4 @@
-import { Button, Modal, Table } from "antd";
+import { Button, Modal, Table,message } from "antd";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -15,6 +15,7 @@ const columns = [
   }
 ];
 
+
 class UserDetail extends Component {
   constructor(props) {
     super(props);
@@ -28,7 +29,18 @@ class UserDetail extends Component {
       }
     };
   }
+  handlechange =(id, removed,userId,userActive) =>{
+    debugger
+    if (userActive == true){
+      this.showModal(id,removed,userId);
+    }else{
+      this.info();
+    }
+  };
 
+  info = () => {
+    message.info('This owner website is disable, you can not change!!');
+  };
   showModal = (webID, removed, userID) => {
     this.setState({
       modal: {
@@ -61,7 +73,7 @@ class UserDetail extends Component {
       }
     });
   };
-
+  
   componentDidMount() {
     const { getUserHandle } = this.props;
     getUserHandle(this.props.match.params.id);
@@ -111,21 +123,41 @@ class UserDetail extends Component {
       },
       {
         title: "Status",
-        render: (_, { webID, removed }) =>
+        render: (_, { webID, removed,authorIsActived }) =>
+        authorIsActived ? (
           removed ? (
+            console.log(record),
             <Button
               type="danger"
-              onClick={() => this.showModal(webID, removed, record.userId)}
+              onClick={() => this.handlechange(webID, removed, record.userId,authorIsActived)}
             >
               Disable
             </Button>
           ) : (
             <Button
               type="primary"
-              onClick={() => this.showModal(webID, removed, record.userId)}
+              onClick={() => this.handlechange(webID, removed, record.userId,authorIsActived)}
             >
               Enable
             </Button>
+          ) 
+          ) : (
+            removed ? (
+              console.log(record),
+              <Button
+                type="default"
+                onClick={() => this.handlechange(webID, removed, record.userId,authorIsActived)}
+              >
+                Disable
+              </Button>
+            ) : (
+              <Button
+                type="default"
+                onClick={() => this.handlechange(webID, removed, record.userId,authorIsActived)}
+              >
+                Enable
+              </Button>
+            ) 
           )
       }
     ];
@@ -165,6 +197,7 @@ class UserDetail extends Component {
         <Modal
           title="Change status"
           visible={this.state.modal.visible}
+          style={{alignItems:"center"}}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >

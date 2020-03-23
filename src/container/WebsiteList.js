@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 
 import { useState, useEffect, useRef } from "react";
-import { Table, Button, Input, Menu, Popover, Modal } from "antd";
+import { Table, Button, Input, message, Popover, Modal, notification } from "antd";
 //import { SearchOutlined  , MoreOutlined  } from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
 
@@ -129,7 +129,17 @@ export const WebsitesComponent = props => {
     clearFilters();
     setSearchText("");
   };
-  const handleEnableOrDisable = (id, removed) => {
+  const handlechange =(id, removed,userActive) =>{
+    if (userActive == true){
+      showModal(id,removed);
+    }else{
+      info();
+    }
+  }
+  const info = () => {
+    message.info('This owner website is disable, you can not change!!');
+  };
+  const handleEnableOrDisable = (id, removed,) => {
     const { lockWebHandle } = props;
     let tmp = !removed;
     lockWebHandle(id, tmp);
@@ -173,8 +183,13 @@ export const WebsitesComponent = props => {
     },
     {
       title: "Status",
-      render: (_, { id, buttonType, buttonTitle, removed }) => (
-        <Button onClick={() => showModal(id, removed)} type={buttonType}>
+      render: (_, { id, buttonType, buttonTitle, removed,userActive }) =>  userActive?
+      (
+        <Button onClick={() => handlechange(id, removed, userActive)} type={buttonType}>
+          {buttonTitle}
+        </Button>
+      ) :(
+        <Button onClick={() => handlechange(id, removed, userActive)} type="default">
           {buttonTitle}
         </Button>
       )

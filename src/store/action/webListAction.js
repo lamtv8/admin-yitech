@@ -28,12 +28,12 @@ export const updateVideos = (
             id: item.webID,
             url: item.webUrl,
             userId:item.authorID,
+            userActive:item.authorIsActived,
             createdAt: new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(timestamp),
             author: item.authorName,
+            removed : item.removed,
             buttonType: item.removed ?  "danger" : "primary" ,
             buttonTitle: item.removed ?  "Disable" :  "Enable",
-            removed: item.removed,          
-            
           }
         })
         dispatch({
