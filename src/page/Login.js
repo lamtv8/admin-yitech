@@ -12,10 +12,10 @@ class Login extends Component {
       NormalLoginForm
     );
     return (
-      <div className="">
+      <div className="" style={{backgroundColor:"#F2F2F2"}}>
         <Row>
           <Col span={7}>
-            <div className="logi-ban2"></div>
+            <div className="logi-ban2" style={{backgroundRepeat:"no-repeat"}}></div>
           </Col>
           <Col span={10}>
             <row>
@@ -24,7 +24,7 @@ class Login extends Component {
               </div>
             </row>
             <row>
-              <div className=" login-form-container">
+              <div className=" login-form-container" style={{border:"solid 1px"}}>
  <WrappedNormalLoginForm
  initUser={this.props.initUser}
  {...this.props}
@@ -34,7 +34,7 @@ class Login extends Component {
             
           </Col>
           <Col span={7}>
-           <div className="logi-ban2"></div>
+           <div className="logi-ban2" style={{backgroundRepeat:"no-repeat"}}></div>
           </Col>
         </Row>
       </div>
@@ -118,7 +118,7 @@ export class NormalLoginForm extends React.Component {
     const { isRemember, loading } = this.state;
     return (
       <Form onSubmit={this.handleSubmit} className="login-form ">
-        <h1 style={{ textAlign: "center" }}>YITECH ADMINISTRATOR</h1>
+        <h1 style={{ textAlign: "center",fontFamily:"Verdana",fontWeight:"bold" }}>YITECH ADMINISTRATOR</h1>
         <Form.Item>
           {getFieldDecorator("username", {
             rules: [{ required: true, message: "Please input email!" }]

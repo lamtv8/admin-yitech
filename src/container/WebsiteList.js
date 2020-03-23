@@ -195,6 +195,9 @@ export const WebsitesComponent = props => {
       >
         <p>Please click ok to confirm this Change</p>
       </Modal>
+      <div style={{backgroundColor:"steelblue", color:"white",height:"40px",textAlign:"center",fontSize:"25px"}}>       
+          <b>WEBSITE LIST</b>
+        </div>
       <Table
         columns={columns}
         rowKey={record => record.id}

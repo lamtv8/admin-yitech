@@ -74,8 +74,8 @@ class LandingPage extends Component {
               <List.Item >
                 <Card title={item.title} className="card-landing-custom">
                   {/* <Icon type={item.icon} /> */}
-                  <div style={{ color: "red", fontSize: "50px", textAlign: "center", fontWeight: "bold", }}>{item.number}</div>
-                  <p>{item.description}</p>
+                  <div style={{fontFamily:"Verdana", color: "blue", fontSize: "50px", textAlign: "center", fontWeight: "bold", }}>{item.number}</div>
+                  <b>{item.description}</b>
                   <Button type="primary" onClick={() => this.navigate(item.router)}>
                     View
                 </Button>

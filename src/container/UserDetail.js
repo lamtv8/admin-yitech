@@ -7,9 +7,9 @@ import { lockWeb } from "../store/action/webListAction";
 
 
 const columns = [
-  { title: "Name of organization", dataIndex: "name", key: "name" },
+  { title: "Name Of Organization", dataIndex: "name", key: "name" },
   {
-    title: "Number of websites",
+    title: "Number Of Websites",
     dataIndex: "number_of_websites",
     key: "number_of_websites"
   }
@@ -170,12 +170,9 @@ class UserDetail extends Component {
         >
           <p>Please click ok to confirm this Change</p>
         </Modal>
-        <p>
-          <b>User Name:</b> {!!userData.user ? userData.user.fullName : ""}
-        </p>
-        <p>
-          <b>Email:</b> {!!userData.user ? userData.user.email : ""}
-        </p>
+        <div style={{backgroundColor:"steelblue", color:"white",height:"40px",textAlign:"center",fontSize:"25px"}}>       
+          <b>{!!userData.user ? userData.user.fullName : ""} - {!!userData.user ? userData.user.email : ""}</b>
+        </div>
         <Table
           columns={columns}
           expandedRowRender={record => this.expandedRowRender(record)}

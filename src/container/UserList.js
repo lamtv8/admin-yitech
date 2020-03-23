@@ -152,7 +152,7 @@ const UsersComponent = props => {
             style={{ cursor: "pointer" }}
             onClick={() => history.push(`/home/users/${id}`)}
           >
-            <div className="hover:text-blue-600">{name}</div>
+            <div className="hover:text-blue-600" hover="click to view detail">{name}</div>
           </h5>
           {/* <a
             className="text-sm text-gray-500 cursor-pointer hover:text-blue-600 hover:underline"
@@ -200,6 +200,9 @@ const UsersComponent = props => {
       >
         <p>Please click ok to confirm this Change</p>
       </Modal>
+      <div style={{backgroundColor:"steelblue", color:"white",height:"40px",textAlign:"center",fontSize:"25px"}}>       
+          <b>USER LIST</b>
+        </div>
       <Table
         columns={columns}
         rowKey={record => record.id}

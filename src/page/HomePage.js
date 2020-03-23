@@ -123,7 +123,7 @@ export class HeaderMenu extends React.Component {
         <Menu
           theme="dark"
           mode="horizontal"
-          style={{ lineHeight: "64px", width: "70%" }}
+          style={{ lineHeight: "64px", width: "70%", }}
         >
           <Menu.Item style={{ padding: "0"  }}>
             <div
@@ -131,8 +131,7 @@ export class HeaderMenu extends React.Component {
               style={{
                 width: "200px",
                 height: "64px",
-                background: "rgba(300, 255, 255, 0.2)",
-                border: "10px solid", 
+                backgroundColor:"steelblue",
               }}
             >
               <NavLink
@@ -141,16 +140,16 @@ export class HeaderMenu extends React.Component {
                 to="/home"
               >
                 <img
-                  style={{ width: "30px", height: "30px",}}
+                  style={{ width: "50px", height: "50px"}}
                   alt="logo"
                   src={require("../static/imgs/icon1111.png")}
                 />
               </NavLink>
             </div>
           </Menu.Item>
-          {/* {routes.map((route, index) => {
+          {routes.map((route, index) => {
             return (
-              <Menu.Item key={`header-menu-${index}-nv`} className="custom-menu-item">
+              <Menu.Item key={`header-menu-${index}-nv`} className="custom-menu-item" style={{marginLeft:"3px"}}>
               
                   <NavLink
                     exact
@@ -161,17 +160,17 @@ export class HeaderMenu extends React.Component {
                   </NavLink>
               </Menu.Item>
             );
-          })} */}
+          })}
         </Menu>
         <div
-          className="right-header"
-          style={{ width: "90%" }}
+          className="right-header"          
+          style={{ width: "30%", }}
           key="user-logout"
         >
           <Tag color="blue">
             <strong>Manage system for Yitech Administrator</strong>
           </Tag>
-          <Button type="primary" style={{marginLeft:"400px"}}  size="small" onClick={this.logOut}>
+          <Button type="primary"  size="small" onClick={this.logOut}>
             Logout <Icon type="logout" />
           </Button>
         </div>
